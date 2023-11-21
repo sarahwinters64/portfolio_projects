@@ -27,12 +27,48 @@ Place abstract Here.
 
 %% First Section
 \section{Background/Motivation}
+As a team, our search for a suitable situation or phenomenon to model encountered some obstacles. Initially, many concepts we considered were better suited for a Partial Differential Equation (PDE) rather than an Ordinary Differential Equation (ODE), which we aimed to avoid based on advice from our professor. Additionally, we sought a topic with a significant impact on people's lives. This led us to focus on analyzing the Simeoni Model (1.1), specifically its application in modeling cancerous tumor growth within the body (Koziol 1). %% TODO remember to do in-text citations (information about how to do that is in test.tex)
 
-Put your background motivation stuff here. Also reference articles and sources that are relevant or that you used when  \cite{Vandermeersch}. 
+\begin{equation}
+\begin{aligned}
+    \frac{dZ_1}{dt} &= TGF(t) - k_1c(t)Z_1(t), \\
+    \frac{dZ_2}{dt} &= k_1c(t)Z_1(t) - k_2Z_2(t), \\ 
+    \frac{dZ_3}{dt} &= k_2Z_2(t) - k_2Z_3(t), \\
+    \frac{dZ_4}{dt} &= k_2Z_3(t) - k_2Z_4(t)
+\end{aligned}
+\tag*{(1.1)}
+\end{equation}
+\hspace{2em}
+ 
+Though they're not representing the same things, part of our interest in the Simeoni Model was from the similarities it has to the SIR Model. This model surrounds the idea of the tumor cells moving from one compartment to another; these compartments are represented by the four functions $Z_1(t)$, $Z_2(t)$, $Z_3(t)$, and $Z_4(t)$. Similarly to the basic SIR Model with constant rates representing the change from one state to another, this system looks at how the tumor cells damaged by treatment are moving to the next compartment. The sum of the cells in each of the four compartments represents the total volume of the tumor. The first compartment $Z_1$ is the model of the growth of the tumor before it is damaged by treatment, so this includes both the change of cells moving from $Z_1$ to $Z_2$ and the growth function of the tumor itself. In our model, moving from one compartment to another represents the tumor weakening; the tumor cells in the $Z_4$ compartment are those most affected by medical treatment, and are therefore the closest to elimination. 
+
+After defining the distinct compartments, we will define the constants and growth function integral to the Simeoni model. As discussed earlier, the $Z_1$ compartment signifies the actively growing segment of the tumor, the stage farthest away from cell elimination. This cell growth is governed by the Tumor Growth Function, denoted as $TGF$ (1.2), which evolves dynamically over time. Concurrently, $c$$($$t$$)$ induces a fraction of tumor cells to undergo programmed cell death, guided by a killing constant 
+$k_1$, thereby transitioning these cells to a higher compartment. Along with $k_1$,  the tumor cells sustain continual damage at a consistent rate of $k_2$ and are relocated to compartment $Z_3$ or $Z_4$ (Koziol 1).
+
+
+\begin{equation}
+\begin{aligned}
+    TGF(t) &= \frac{\lambda_0Z_1(t)}{[1 + (\frac{\lambda_0}{\lambda_1}V(t))^\psi]^\frac{1}{\psi}}, 
+\end{aligned}
+\tag*{(1.2)}
+\end{equation}
+\qquad where $V(t)$ is the total tumor volume, $\lambda_0$, $\lambda_1$, and $\psi$ are constants %% TODO, what are the constants from 
+\hspace{4em}
+
+Various techniques and methods have been historically employed to tackle the challenge of modeling tumor growth and decay. Prior studies have explored models such as Mendelsohn, Exponential, Linear, Logistic, and Bertalanffy, among others (Murphy 1). Each of these models brings a unique perspective to the understanding of tumor dynamics. While Simeoni is one of the models in this repertoire, we recognize the importance of critically evaluating its suitability and effectiveness compared to alternative models.
+
+Our pursuit into the intricacies of the Simeoni model is motivated by a fundamental question: Is the existing Simeoni model an accurate approximation for the decay/growth of tumor cells, or are there adjustments that could enhance its precision in characterizing this phenomenon? By delving into this inquiry, we aim to contribute valuable insights to the field of tumor modeling and treatment efficiency.
+
+Our analysis goes beyond a mere comparison between models; we endeavor to comprehensively understand the intricacies of the Simeoni model and its counterparts. This involves a detailed examination of the mathematical formulations, underlying assumptions, and empirical implications of each model. By doing so, we not only position our exploration within the broader context of existing research but also aim to uncover nuances that might have been overlooked.
+
+In response to the valuable feedback received during the proposal stage, our approach is designed to showcase a deep understanding of the subject matter. This understanding is not confined to the isolated examination of the Simeoni model but extends to a holistic appreciation of how our exploration fits into the larger landscape of tumor modeling. By elucidating the strengths and limitations of various models and synthesizing this information, our study aspires to provide a nuanced evaluation of the Simeoni model's efficacy in capturing the intricacies of tumor decay.
+
+In doing so, we seek to make meaningful contributions to the ongoing discourse in the field, shedding light on potential adjustments to existing models and advancing our understanding of tumor behavior. This endeavor holds the promise of influencing not only theoretical aspects of tumor modeling but also practical implications for treatment strategies and therapeutic interventions.
+
 
 %% Second Section 
 \section{Modeling}
-Before adjusting the Simeoni model, we first wanted to examine its equilibria and the stability of the system at each equilibrium. An initial look at the system of ODEs shows that there is an equilibrium when each $Z_i = 0$. To confirm that this was the only equilibrium, we created a numpy array representing the system, and calculated the null space. This proved that for the original Simeoni model, there is one equilibrium at the origin. 
+Before adjusting the Simeoni model, we first wanted to examine its equilibria and the stability of the system at each equilibrium. An initial look at the system of ODEs shows that there is an equilibrium when each $Z_i = 0$. To confirm that this was the only equilibrium, we created a numpy array representing the system, and calculated the null space. This proved that for the original Simeoni model, there is one equilibrium at the origin. Because we're working with a linear model, in order to examine the stability of the origin, we calculated the eigenvalues of the matrix representing the model. Using $k_1 = 0.4$, $k_2 = 0.5$, $c(t) = 0.5$, and $TGF(t) \approx 0.075$, our eigenvalues were $\lambda_1 = -0.5$, $\lambda_2 = -0.5$, $\lambda_3 = -0.5$, and $\lambda_4 \approx -0.125$. Since these values are all less than zero, we found that the origin is a stable equilibrium. 
 
 
 %% Third Section
@@ -59,9 +95,8 @@ Before adjusting the Simeoni model, we first wanted to examine its equilibria an
 \FloatBarrier % Keep the figures from being put after the bibliography
 \newpage
 %% If using bibtex, leave this uncommented
+\bibliographystyle{plain}
 \bibliography{refs} %if using bibtex, call your bibtex file refs.bib
-\bibliographystyle{alpha}
-
 %% If not using bibtex, comment out the previous two lines and uncomment those below
 %\begin{thebibliography}{99}
 %\bibitem{Vandermeersch} First reference goes here
