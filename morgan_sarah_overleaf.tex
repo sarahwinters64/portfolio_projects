@@ -72,22 +72,53 @@ In doing so, we seek to make meaningful contributions to the ongoing discourse i
 
 %% Second Section 
 \section{Modeling}
-Before adjusting the Simeoni model, we first wanted to examine its equilibria and the stability of the system at each equilibrium. An initial look at the system of ODEs shows that there is an equilibrium when each $Z_i = 0$. To confirm that this was the only equilibrium, we created a numpy array representing the system, and calculated the null space. This proved that for the original Simeoni model, there is one equilibrium at the origin. Because we're working with a linear model, in order to examine the stability of the origin, we calculated the eigenvalues of the matrix representing the model. Using $k_1 = 0.4$, $k_2 = 0.5$, $c(t) = 0.5$, and $TGF(t) \approx 0.075$, our eigenvalues were $\lambda_1 = -0.5$, $\lambda_2 = -0.5$, $\lambda_3 = -0.5$, and $\lambda_4 \approx -0.125$. Since these values are all less than zero, we found that the origin is a stable equilibrium. 
+Before adjusting the Simeoni model, we first wanted to examine its equilibria and the stability of the system at each equilibrium. An initial look at the system of ODEs shows that there is an equilibrium when each $Z_i = 0$. This occurs at $t=0$ and , so we have $Z_1(0) = Z_2(0) = Z_3(0) = Z_4(0)$. To confirm that this was the only equilibrium, we created a \verb!numpy! array representing the system, and calculated the null space. This proved that for the original Simeoni model, there is one equilibrium at the origin. Because we're working with a linear model, in order to examine the stability of the origin, we calculated the eigenvalues of the matrix representing the model. If we use $k_1 = 0.4$, $k_2 = 0.5$, $c(t) = 0.5$, and $TGF(t) \approx 0.075$, our eigenvalues are $\lambda_1 = -0.5$, $\lambda_2 = -0.5$, $\lambda_3 = -0.5$, and $\lambda_4 \approx -0.125$. Since these values are all less than zero, we found that the origin is a stable equilibrium. Figure \ref{fig:1} is a visual representation of the model where the stability was found.
+\begin{figure}[h]
+
+\begin{center} %Put your images in a figure like this
+\includegraphics[width=\textwidth]{original_tumor_random_parameters.pdf}. % Better to make them pdfs than png or gif or jpeg
+\end{center}
+\caption{Our original parameter valued model with parameters $\lambda_0=.5, \lambda_1=.2, \psi=.5, k_1 = .4, k_2=.5, c=t, V_0 = .3$}
+\label{fig:1}
+\end{figure}
+
+As the Simeoni model graphs are modeled after the equations \ref{eq:1.1} and graphed in python. We solved our IVP with Scipy \verb!solve_ivp!. This is a non linear model as the system of differential equations includes functions like the Tumor Growth function \ref{eq:1.2} as a function of $Z1$ and the sum of $Z1$, $Z2$, $Z3$, and $Z4$. The constants of each value are arbitrary chosen and we found that constants that model the tumor growth realistically based on research \cite{Koziol_Falls_Schnitzer_2020} are those that are smaller than $0.5$, and greater than $0$. See figure \ref{fig:2} for a visual representation for that model. The  
+\begin{figure}[h]
+\begin{center} %Put your images in a figure like this
+\includegraphics[width=\textwidth]{parameters_like_paper.pdf}. % Better to make them pdfs than png or gif or jpeg
+\end{center}
+\caption{Realistic valued model, with parameters: $\lambda_0=0.02, \lambda_1=0.001, \psi=2, c=t, k_1=0.001, k_2=0.001, V_0=1$}
+\label{fig:2}
+\end{figure}
+
+Also, in our model we have a method of how aggressive our cancer treatment can be with our $c(t)$ function. If we let $c(t)=0$, we can model the growth of the tumors without any treatment. Figure \ref{fig:2} with no treatment turns into \ref{fig:3}. 
+\begin{figure}[h]
+\begin{center} %Put your images in a figure like this
+\includegraphics[width=\textwidth]{parameters_like_paper_no_treatment.pdf}. % Better to make them pdfs than png or gif or jpeg
+\end{center}
+\caption{Realistic valued model, with no treatment}
+\label{fig:3}
+\end{figure}
+
+To understand what the model was doing we delved into the world of parameter tuning. As we tweaked each parameter we realized that this could lead to investigating the impact on the efficacy of cancer treatment. Our model's behavior prompted us to explore various parameter combinations, ultimately leading to surprising discoveries. Initially, as we are not cancer experts, we did not know what a 'normal` cancer model should behave, and the intricacies of each parameter's influence were not well understood. To understand better, we varied these parameters to observe their effects on the cancer population over time. When each parameter has higher values of the cancer decreased instead of increasing, creating more effective treatment outcomes. Figure \ref{fig:1} illustrates this rapid decrease of population which we found by just guessing values less than the original population. With specific parameter values outlined in the caption, the cancer is basically gone within 20 days. 
 
 
 %% Third Section
 \section{Results}
 
+%Talk about how if we can build a cancer treatment to model this it would be great!
+ We believe that our model can accurately describe some tumor growth, but can be affected by changing the parameters. In order to find the accuracy of our model we would need to further investigation and validation in medical testing. It is important to explore the feasibility of directly manipulating these parameters in real-world scenarios and to determine the optimal combination for achieving the most effective cancer treatment. If we could 
+
 %%Fourth Section
 \section{Analysis/Conclusions}
 
 
-\begin{figure}[h]
-\begin{center} %Put your images in a figure like this
-\includegraphics[width=\textwidth]{Myfig.pdf}. % Better to make them pdfs than png or gif or jpeg
-\end{center}
-\label{fig:MatrixError}
-\end{figure}
+%%\begin{figure}[h]
+%%\begin{center} %Put your images in a figure like this
+%%\includegraphics[width=\textwidth]{Myfig.pdf}. % Better to make them pdfs than png or gif or jpeg
+%%\end{center}
+%%\label{fig:MatrixError}
+%%\end{figure}
 
 
 
