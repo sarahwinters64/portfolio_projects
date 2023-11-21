@@ -58,6 +58,7 @@ $k_1$, thereby transitioning these cells to a higher compartment. Along with $k_
 \begin{remark}
     $\lambda_0, \lambda_1$, and $\psi$ as parameters do not mean much to the Simeoni model. Changing these constants can have tumors die completely, which could be considered in our final conclusions.
 \end{remark}
+%i mean this might be true since we can't find their meanings but i don't think we should explicitly say that they don't mean much since we want to emphasize how important changing them could be on killing all tumors... - michelle
 
 Various techniques and methods have been historically employed to tackle the challenge of modeling tumor growth and decay. Prior studies have explored models such as Mendelsohn, Exponential, Linear, Logistic, and Bertalanffy, among others \cite{Murphy_Hope_2016}. Each of these models brings a unique perspective to the understanding of tumor dynamics. While Simeoni is one of the models in this repertoire, we recognize the importance of critically evaluating its suitability and effectiveness compared to alternative models.
 
@@ -78,20 +79,22 @@ Before adjusting the Simeoni model, we first wanted to examine its equilibria an
 \begin{center} %Put your images in a figure like this
 \includegraphics[width=\textwidth]{original_tumor_random_parameters.pdf}. % Better to make them pdfs than png or gif or jpeg
 \end{center}
-\caption{Our original parameter valued model with parameters $\lambda_0=.5, \lambda_1=.2, \psi=.5, k_1 = .4, k_2=.5, c=t, V_0 = .3$}
+\caption{Our altered-parameters-valued model with parameters $\lambda_0=.5, \lambda_1=.2, \psi=.5, k_1 = .4, k_2=.5, c=t, V_0 = .3$}
 \label{fig:1}
 \end{figure}
+%we should change this model (figure 1) to have the same initial volume V0 as our realistic model for consistency - michelle
 
-As the Simeoni model graphs are modeled after the equations \ref{eq:1.1} and graphed in python. We solved our IVP with Scipy \verb!solve_ivp!. This is a non linear model as the system of differential equations includes functions like the Tumor Growth function \ref{eq:1.2} as a function of $Z1$ and the sum of $Z1$, $Z2$, $Z3$, and $Z4$. The constants of each value are arbitrary chosen and we found that constants that model the tumor growth realistically based on research \cite{Koziol_Falls_Schnitzer_2020} are those that are smaller than $0.5$, and greater than $0$. See figure \ref{fig:2} for a visual representation for that model. The  
+The Simeoni model graphs are modeled after the equations \ref{eq:1.1} and graphed in python. We solved our IVP with Scipy \verb!solve_ivp!. This is a non linear model as the system of differential equations includes functions like the Tumor Growth function \ref{eq:1.2} as a function of $Z1$ and the sum of $Z1$, $Z2$, $Z3$, and $Z4$, which constitute the volume. The model consists of constant parameters, including $k_1$, $k_2$, $lambda_0$, $lambda_1$, and $phi$. We found that the values of these constant parameters that model the tumor growth most realistically and similarly to existing research \cite{Koziol_Falls_Schnitzer_2020} are those that are smaller than $0.5$ and greater than $0$. See figure \ref{fig:2} for a visual representation for that model. 
 \begin{figure}[h]
 \begin{center} %Put your images in a figure like this
 \includegraphics[width=\textwidth]{parameters_like_paper.pdf}. % Better to make them pdfs than png or gif or jpeg
 \end{center}
-\caption{Realistic valued model, with parameters: $\lambda_0=0.02, \lambda_1=0.001, \psi=2, c=t, k_1=0.001, k_2=0.001, V_0=1$}
+\caption{Realistic valued model, with parameters: $\lambda_0=0.02, \lambda_1=0.001, \psi=-2, c=t, k_1=0.001, k_2=0.001, V_0=1$}
 \label{fig:2}
 \end{figure}
 
-Also, in our model we have a method of how aggressive our cancer treatment can be with our $c(t)$ function. If we let $c(t)=0$, we can model the growth of the tumors without any treatment. Figure \ref{fig:2} with no treatment turns into \ref{fig:3}. 
+Within the Simeoni Model, the parameter c(t) represents the concentration of a chemotherapeutic or immunotherapeutic agent in the Z1 compartment at time t. Therefore, allowing for c(t) to equal zero at all values of t gives us tumor growth in the absence of any treatment. Figure \ref{fig:3} plots untreated tumor growth against time. Compare with Figure \ref{fig:2}, which has the same given parameters. It is worth noting that we do observe what we would expect to observe. Under the same given parameters, there is higher tumor volume over time in the absence of treatment than there is under treatment.
+
 \begin{figure}[h]
 \begin{center} %Put your images in a figure like this
 \includegraphics[width=\textwidth]{parameters_like_paper_no_treatment.pdf}. % Better to make them pdfs than png or gif or jpeg
@@ -100,9 +103,23 @@ Also, in our model we have a method of how aggressive our cancer treatment can b
 \label{fig:3}
 \end{figure}
 
-To understand what the model was doing we delved into the world of parameter tuning. As we tweaked each parameter we realized that this could lead to investigating the impact on the efficacy of cancer treatment. Our model's behavior prompted us to explore various parameter combinations, ultimately leading to surprising discoveries. Initially, as we are not cancer experts, we did not know what a 'normal` cancer model should behave, and the intricacies of each parameter's influence were not well understood. To understand better, we varied these parameters to observe their effects on the cancer population over time. When each parameter has higher values of the cancer decreased instead of increasing, creating more effective treatment outcomes. Figure \ref{fig:1} illustrates this rapid decrease of population which we found by just guessing values less than the original population. With specific parameter values outlined in the caption, the cancer is basically gone within 20 days. 
+To further understand the model's behavior, we conducted deep parameter tuning on the constant parameters. As we tweaked each parameter we realized that this could lead to investigating the impact of each particular parameter on the efficacy of chemotherapy and immunotherapy. Our model's behavior prompted us to explore various parameter combinations, ultimately leading to surprising discoveries. Initially, as we are not cancer experts, we did not know how a 'normal` cancer model should behave, and the intricacies of each parameter's influence were not well understood. 
+%this paragraph above seems kind of repetitive; in particular, the first few sentences - michelle
+
+In order to understand each constant parameter's influence better, we varied these parameters to observe their effects on the cancer population over time. When each constant parameter is increased relative to the constant parameter setting of the realistic model, we find that tumor growth increases at a slower rate. With parameter values high enough, the overall tumor volume even eventually returns to zero, signifying a state void of any remaining tumor cells. This potentially has very significant implications: if the constant parameters can be realistically manipulated to reach the values as in our altered model, the same levels of chemotherapeutic and immunotherapeutic treatment will yield much more effective outcomes. 
 
 
+Figure \ref{fig:1} and Figure \ref{fig:4} illustrate the rapid decrease of tumor volume upon increasing the values of the constant parameters. With specific parameter values as outlined in the respective captions, we find that we can not only slow tumor growth rate but also completely eradicate all tumors. As seen in Figure \ref{fig:1}, all tumors are essentially gone within 20 days.
+
+\begin{figure}[h]
+\begin{center} %Put your images in a figure like this
+\includegraphics[width=\textwidth]{altered.png}. % Better to make them pdfs than png or gif or jpeg
+\end{center}
+\caption{Our altered-parameters-valued model with parameters $\lambda_0=0.02, \lambda_1=0.001, \psi=2, k_1 = 0.001, k_2=0.001, V_0 = 1$}
+\label{fig:4}
+\end{figure}
+
+% should check if our realistic model is truly similar to what the research says; either way though we can slow tumor growth rate by increasing parameters
 
 
 
@@ -110,11 +127,19 @@ To understand what the model was doing we delved into the world of parameter tun
 %% Third Section
 \section{Results}
 %Talk about how if we can build a cancer treatment to model this it would be great!
- We believe that our model can accurately describe some tumor growth, but can be affected by changing the parameters. In order to find the accuracy of our model we would need to further investigation and validation in medical testing. It is important to explore the feasibility of directly manipulating these parameters in real-world scenarios and to determine the optimal combination for achieving the most effective cancer treatment. If we could 
+ We believe that our model can accurately describe some tumor growth, but can be affected by changing the parameters. In order to find the accuracy of our model we would need to conduct further investigation and validation in medical testing. It is important to explore the feasibility of directly manipulating these parameters in real-world scenarios and to determine the optimal combination for achieving the most effective cancer treatment. 
 
 %%Fourth Section
 \section{Analysis/Conclusions}
+The Simeoni model realistically reflects the chemotherapeutic and immunotherapeutic treatment on tumor growth. In the absence of such treatment agents, tumor growth is increased. Increasing the constant parameter values in the Simeoni model results in slower tumor growth rates and even, in some cases, complete annihilation of all existing tumors. Should it be realistically possible and ethical to attain such values for the constant parameters as in our altered models, the efficacy of the same levels of chemotherapeutic and immunotherapeutic agents can be greatly increased. Nonetheless, these findings suggest that even minimally increasing the values of the constant parameters can have positive effects on slowing tumor growth.
+%can do more to find out what is the minimum to increase (statistically significant) to have a meaningful effect on slowing tumor growth
 
+
+We intend to explore and dissect the Simeoni model further by next altering the c(t) function. Findings from these particular alterations can lend insight into optimal amounts of chemotherapeutic and immunotherapeutic agent concentrations at different times. We also intend to experiment with different initial values of Z1, which can lend valuable insight into efficacy of treatment at earlier vs later and slower vs rapid onset stages of cancer.
+%SEE COMMENT FOR THIS PARTICULAR PARAGRAPH%
+%This is just for the final draft. This is something we will actually do and write up for the final final project. So this is just a placeholder until we have those models completed.
+
+% Should probably add an errors or things affecting our findings paragraph. And then a real paragraph for further research.
 
 % \begin{figure}[h]
 % \begin{center} %Put your images in a figure like this
