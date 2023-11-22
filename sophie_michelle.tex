@@ -15,15 +15,16 @@
 \begin{document}
 
 \title{The Simeoni Model for Tumor Growth}
-\author{Sophie Carter, Morgan Nielsen, Michelle Wang, Sarah Winters \today}
+\author{Sophie Carter, Morgan Nielsen, Michelle Wang, Sarah Winters}
+\date{November 21, 2023}
 
 %% comment out next command to put today's date after names of group members, or put a desired day in the parethesis
-%% \date{\today}
+
 
 \maketitle
 
 \begin{abstract}
-Place abstract Here.
+The Simeoni Model is a system of ordinary differential equations that represents tumor growth as it receives different treatments. After researching the constants, variables, and functions used in this model, we created graphs to see how changing the parameters affected the model and what it implied about tumor growth. We conclude that this model successfully represents immunotherapeutic and chemotherapeutic treatment on tumor cells, and we are curious about how the different constants are related to the various cancer treatments. 
 \end{abstract}
 
 %% First Section
@@ -58,7 +59,7 @@ $k_1$, thereby transitioning these cells to a higher compartment. Along with $k_
 \begin{remark}
     The parameters $\lambda_0, \lambda_1$, and $\psi$ were not explicitly discussed too much in our sources of research on the Simeoni Model. However, changing these constants can have tumors die completely, which could be considered in our final conclusions.
 \end{remark}
-%i mean this might be true since we can't find their meanings but i don't think we should explicitly say that they don't mean much since we want to emphasize how important changing them could be on killing all tumors... - michelle
+
 
 Various techniques and methods have been historically employed to tackle the challenge of modeling tumor growth and decay. Prior studies have explored models such as Mendelsohn, Exponential, Linear, Logistic, and Bertalanffy, among others \cite{Murphy_Hope_2016}. Each of these models brings a unique perspective to the understanding of tumor dynamics. While Simeoni is one of the models in this repertoire, we recognize the importance of critically evaluating its suitability and effectiveness compared to alternative models.
 
@@ -103,7 +104,7 @@ Within the Simeoni Model, the parameter c(t) represents the concentration of a c
 \label{fig:3}
 \end{figure}
 
-To further understand the model's behavior, we conducted deep parameter tuning on the constant parameters. As we tweaked each parameter we realized that this could lead to investigating the impact of each particular parameter on the efficacy of chemotherapy and immunotherapy. Our model's behavior prompted us to explore various parameter combinations, ultimately leading to surprising discoveries. Initially, as we are not cancer experts, we did not know how a 'normal` cancer model should behave, and the intricacies of each parameter's influence were not well understood. 
+To further understand the model's behavior, we conducted deep parameter tuning on the constant parameters. As we tweaked each parameter we realized that this could lead to investigating the impact of each particular parameter on the efficacy of chemotherapy and immunotherapy. Our model's behavior prompted us to explore various parameter combinations, ultimately leading to surprising discoveries. Initially, as we are not cancer experts, we did not know how a "normal" cancer model should behave, and the intricacies of each parameter's influence were not well understood. 
 %this paragraph above seems kind of repetitive; in particular, the first few sentences - michelle
 
 In order to understand each constant parameter's influence better, we varied these parameters to observe their effects on the cancer population over time. When each constant parameter is increased relative to the constant parameter setting of the realistic model, we find that tumor growth increases at a slower rate. With parameter values high enough, the overall tumor volume even eventually returns to zero, signifying a state void of any remaining tumor cells. This potentially has very significant implications: if the constant parameters can be realistically manipulated to reach the values as in our altered model, the same levels of chemotherapeutic and immunotherapeutic treatment will yield much more effective outcomes. 
